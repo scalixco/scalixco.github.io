@@ -325,8 +325,8 @@ footer p{font-size:.82rem;color:var(--muted)}
         <div class="section-label">Contacto</div>
         <h2>Hablemos de<br/>tu negocio</h2>
         <p>Cuéntanos en qué etapa está tu empresa y qué resultados esperas. La primera consultoría es completamente gratuita.</p>
-        <div class="contact-detail"><span>📧</span><span>Lauryuribe48@gmail.com</span></div>
-        <div class="contact-detail"><span>📱</span><span>+57 310 815 9165</span></div>
+        <div class="contact-detail"><span>📧</span><span><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="a6eac7d3d4dfd3d4cfc4c3929ee6c1cbc7cfca88c5c9cb">[email&#160;protected]</a></span></div>
+        <div class="contact-detail"><span>📱</span><span>+57 312 868 4661</span></div>
         <div class="contact-detail"><span>📍</span><span>Colombia · Atención virtual</span></div>
       </div>
       <form class="reveal" onsubmit="handleSubmit(event)">
@@ -374,35 +374,24 @@ footer p{font-size:.82rem;color:var(--muted)}
   </div>
 </footer>
 
-<script>
-  const observer = new IntersectionObserver(entries => {
-    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
-  }, { threshold: 0.1 });
-  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-  setTimeout(() => {
-    document.querySelectorAll('.reveal').forEach(el => el.classList.add('visible'));
-  }, 800);
-
-  function handleSubmit(e) {
-    e.preventDefault();
-    const nombre  = document.getElementById('nombre').value.trim();
-    const empresa = document.getElementById('empresa').value.trim();
-    const email   = document.getElementById('email').value.trim();
-    const servicio= document.getElementById('servicio').value;
-    const mensaje = document.getElementById('mensaje').value.trim();
-    const numero  = '573108159165';
-    const texto = 'Hola Scalix! Me contacto desde su pagina web.\n\nNombre: ' + nombre
-      + '\nEmpresa: ' + (empresa || 'No especificada')
-      + '\nEmail: ' + email
-      + '\nServicio de interes: ' + (servicio || 'No especificado')
-      + '\nMensaje: ' + (mensaje || 'Sin mensaje adicional');
-    const url = 'https://wa.me/' + numero + '?text=' + encodeURIComponent(texto);
-    const btn = e.target.querySelector('.btn-submit');
-    btn.textContent = 'Abriendo WhatsApp...';
-    btn.style.background = '#25D366';
-    btn.disabled = true;
-    setTimeout(() => window.open(url, '_blank'), 400);
+<!-- HubSpot Pixel -->
+<script type="text/javascript" id="hs-script-loader" async defer src="//js.hs-scripts.com/51240305.js">
+  function createHubSpotContact(nombre, email, empresa, servicio, mensaje) {
+    var parts = nombre.split(' ');
+    var fields = [
+      {name: 'firstname', value: parts[0] || nombre},
+      {name: 'lastname',  value: parts.slice(1).join(' ') || ''},
+      {name: 'email',     value: email},
+      {name: 'company',   value: empresa || ''},
+      {name: 'message',   value: 'Servicio: ' + servicio + ' | ' + mensaje}
+    ];
+    fetch('https://api.hsforms.com/submissions/v3/integration/submit/51240305/scalix-lead', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({fields: fields, context: {pageUri: window.location.href, pageName: 'Scalix'}})
+    }).catch(function(){});
   }
 </script>
+
 </body>
 </html>
